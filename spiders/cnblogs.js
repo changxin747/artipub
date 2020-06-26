@@ -2,15 +2,14 @@ const BaseSpider = require('./base')
 
 class CnblogsSpider extends BaseSpider {
 
-  async inputContent(article, editorSel) {
-    const footerContent = `<br><b>本篇文章由一文多发平台<a href="https://github.com/crawlab-team/artipub" target="_blank">ArtiPub</a>自动发布</b>`
-    const content = article.contentHtml + footerContent;
-    const iframeWindow = document.querySelector('#Editor_Edit_EditorBody_ifr').contentWindow
-    const el = iframeWindow.document.querySelector(editorSel.content)
-    el.focus()
-    iframeWindow.document.execCommand('delete', false)
-    iframeWindow.document.execCommand('insertHTML', false, content)
-  }
+  // async inputContent(article, editorSel) {
+  //   const content = article.contentHtml;
+  //   const iframeWindow = document.querySelector('#Editor_Edit_EditorBody_ifr').contentWindow
+  //   const el = iframeWindow.document.querySelector(editorSel.content)
+  //   el.focus()
+  //   iframeWindow.document.execCommand('delete', false)
+  //   iframeWindow.document.execCommand('insertHTML', false, content)
+  // }
 
   async inputFooter(article, editorSel) {
     // do nothing

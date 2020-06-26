@@ -124,9 +124,9 @@ module.exports = {
       password: ''
     },
     editorSel: {
-      title: '#Editor_Edit_txbTitle',
-      content: '#tinymce',
-      publish: '#Editor_Edit_lkbPost'
+      title: '#post-title',
+      content: '#md-editor',
+      publish: '.cnb-button.ng-star-inserted'
     }
   },
 
