@@ -117,7 +117,7 @@ module.exports = {
   cnblogs: {
     urls: {
       login: '',
-      editor: 'https://i.cnblogs.com/EditArticles.aspx?opt=1'
+      editor: 'https://i.cnblogs.com/posts/edit'
     },
     loginSel: {
       username: '',

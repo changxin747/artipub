@@ -16,12 +16,9 @@ class CnblogsSpider extends BaseSpider {
   }
 
   async afterPublish() {
-    const username = await this.page.evaluate(() => {
-      return document.querySelector('#lnkBlogUrl').innerText
+    const url = await this.page.evaluate(() => {
+      return document.querySelector('.link-post-title').href
     })
-    const _url = this.page.url()
-    const id = _url.match(/postid=(\d+)/)[1]
-    const url = `https://www.cnblogs.com/${username}/articles/${id}.html`
     this.task.url = url
     this.task.updateTs = new Date()
     await this.task.save()
