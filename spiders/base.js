@@ -98,7 +98,7 @@ class BaseSpider {
 
     // 脚注内容
     this.footerContent = {
-      richText: `<br><b>本篇文章由一文多发平台<a href="https://github.com/crawlab-team/artipub" target="_blank">ArtiPub</a>自动发布</b>`,
+      // richText: `<br><b>本篇文章由一文多发平台<a href="https://github.com/crawlab-team/artipub" target="_blank">ArtiPub</a>自动发布</b>`,
     }
   }
 
@@ -256,17 +256,18 @@ class BaseSpider {
     await this.page.waitFor(3000)
 
     // 输入内容
+    // this.inputContent(this.article, this.editorSel)
     await this.page.evaluate(this.inputContent, this.article, this.editorSel)
     await this.page.waitFor(3000)
 
     // 输入脚注
-    await this.page.evaluate(this.inputFooter, this.article, this.editorSel)
-    await this.page.waitFor(3000)
+    // await this.page.evaluate(this.inputFooter, this.article, this.editorSel)
+    // await this.page.waitFor(3000)
 
     await this.page.waitFor(10000)
 
     // 后续处理
-    await this.afterInputEditor()
+    await this.afterInputEditor(this.task)
   }
 
   /**

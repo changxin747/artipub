@@ -53,16 +53,16 @@ module.exports = {
   csdn: {
     urls: {
       login: '',
-      editor: 'https://mp.csdn.net/postedit?not_checkout=1'
+      editor: 'https://editor.csdn.net/md/?not_checkout=1'
     },
     loginSel: {
       username: '',
       password: ''
     },
     editorSel: {
-      title: '#txtTitle',
-      content: '.htmledit_views',
-      publish: '#btnPublish'
+      title: '.article-bar__title',
+      content: '.editor__inner',
+      publish: '.button.btn-b-red'
     }
   },
 

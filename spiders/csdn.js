@@ -11,13 +11,10 @@ class CsdnSpider extends BaseSpider {
   }
 
   async inputContent(article, editorSel) {
-    const footerContent = `<br><b>本篇文章由一文多发平台<a href="https://github.com/crawlab-team/artipub" target="_blank">ArtiPub</a>自动发布</b>`
-    const content = article.contentHtml + footerContent;
-    const iframeWindow = document.querySelector('.cke_wysiwyg_frame').contentWindow
-    const el = iframeWindow.document.querySelector(editorSel.content)
+    const el = document.querySelector(editorSel.content)
+    el.textContent = ""
     el.focus()
-    iframeWindow.document.execCommand('delete', false)
-    iframeWindow.document.execCommand('insertHTML', false, content)
+    el.textContent = article.content
   }
 
   async inputFooter(article, editorSel) {
@@ -25,17 +22,34 @@ class CsdnSpider extends BaseSpider {
   }
 
   async afterInputEditor() {
+    //关闭右侧说明
+    const cel = await this.page.$('.side-title__button_close')
+    await cel.click()
+    await this.page.waitFor(3000)
+
+    //点击发布按钮
+    const pel = await this.page.$('.btn.btn-publish')
+    await pel.click()
+    await this.page.waitFor(2000)
+
     // 选择文章类型
-    await this.page.evaluate(task => {
-      const el = document.querySelector('#selType')
-      el.value = task.category
-    }, this.task)
+    const wtype = await this.page.$('.textfield')
+    var selValue = 'original';  //原创
+    if(this.task.category == '2'){
+      selValue = 'repost'   //转载
+    }
+    else if(this.task.category == '3'){
+      selValue = 'translated'   //转载
+    }
+    await wtype.select(selValue)
+    await this.page.waitFor(2000)
 
     // 选择发布形式
     await this.page.evaluate(task => {
       const el = document.querySelector('#' + task.pubType)
       el.click()
     }, this.task)
+    await this.page.waitFor(1000)
   }
 
   async afterPublish() {
