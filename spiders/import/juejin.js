@@ -18,7 +18,7 @@ class JuejinImportSpider extends BaseImportSpider {
                 }
             }
         })
-        await this.page.goto('https://juejin.im' + userPath + '/posts', { waitUntil: 'networkidle2' })
+        await this.page.goto('https://juejin.im' + userPath + '/posts', { waitUntil: 'networkidle2', timeout: 0  }), 
         await this.page.waitFor(3000)
 
         return await this.page.evaluate(() => {

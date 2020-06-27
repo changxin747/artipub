@@ -3,7 +3,7 @@ const BaseSpider = require('./base')
 class OschinaSpider extends BaseSpider {
   async goToEditor() {
     // 导航至首页
-    await this.page.goto('https://oschina.net')
+    await this.page.goto('https://oschina.net', { timeout: 0 })
     await this.page.waitFor(5000)
 
     // 获取编辑器URL
@@ -19,7 +19,7 @@ class OschinaSpider extends BaseSpider {
 
     if (!url) throw new Error('editor url cannot be empty')
 
-    await this.page.goto(url)
+    await this.page.goto(url, { timeout: 0 })
     await this.page.waitFor(5000)
   }
 
@@ -99,7 +99,7 @@ class OschinaSpider extends BaseSpider {
 
   async fetchStats() {
     if (!this.task.url) return
-    await this.page.goto(this.task.url, { timeout: 60000 })
+    await this.page.goto(this.task.url, { timeout: 0 })
     await this.page.waitFor(5000)
 
     const stats = await this.page.evaluate(() => {

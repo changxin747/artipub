@@ -3,7 +3,7 @@ const constants = require('../constants')
 
 class JuejinSpider extends BaseSpider {
     async afterGoToEditor() {
-        await this.page.goto(this.urls.editor)
+        await this.page.goto(this.urls.editor, { timeout: 0 })
         await this.page.waitFor(5000)
     }
 
@@ -45,7 +45,7 @@ class JuejinSpider extends BaseSpider {
 
     async fetchStats() {
         if (!this.task.url) return
-        await this.page.goto(this.task.url, { timeout: 60000 })
+        await this.page.goto(this.task.url, { timeout: 0 })
         await this.page.waitFor(5000)
 
         const stats = await this.page.evaluate(() => {
