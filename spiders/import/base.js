@@ -44,7 +44,8 @@ class BaseImportSpider extends BaseSpider {
       //如果是访问https页面 此属性会忽略https错误
       ignoreHTTPSErrors: true,
       devtools: false,
-      headless: enableChromeDebug !== 'Y',
+      // headless: enableChromeDebug !== 'Y',
+      headless: true,      //不打开浏览器
       args: [
         '--no-sandbox',
       ]
@@ -87,7 +88,7 @@ class BaseImportSpider extends BaseSpider {
     await this.init()
     await this.setCookies()
     try {
-      await this.page.goto(this.platform.url, { timeout: 60000 })
+      await this.page.goto(this.platform.url, { timeout: 0 })
     } catch (e) {
       console.error(e)
       await this.browser.close()

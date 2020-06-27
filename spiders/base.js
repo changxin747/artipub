@@ -58,7 +58,8 @@ class BaseSpider {
       // 打开开发者工具, 当此值为true时, headless总为false
       devtools: false,
       // 关闭headless模式, 不会打开浏览器
-      headless: enableChromeDebug !== 'Y',
+      // headless: enableChromeDebug !== 'Y',
+      headless: true,      //不打开浏览器
       args: [
         '--no-sandbox',
       ]
@@ -124,13 +125,14 @@ class BaseSpider {
     this.browser = await this.pcr.puppeteer.launch({
       executablePath: this.pcr.executablePath,
       //设置超时时间
-      timeout: 120000,
+      timeout: 0,
       //如果是访问https页面 此属性会忽略https错误
       ignoreHTTPSErrors: true,
       // 打开开发者工具, 当此值为true时, headless总为false
       devtools: false,
       // 关闭headless模式, 不会打开浏览器
-      headless: enableChromeDebug !== 'Y',
+      // headless: enableChromeDebug !== 'Y',   //打开浏览器
+      headless: true,      //不打开浏览器
       args: [
         '--no-sandbox',
       ]
@@ -151,7 +153,7 @@ class BaseSpider {
    */
   async login() {
     logger.info(`logging in... navigating to ${this.urls.login}`)
-    await this.page.goto(this.urls.login)
+    await this.page.goto(this.urls.login, { timeout: 0 })
     let errNum = 0
     while (errNum < 10) {
       try {
@@ -197,7 +199,9 @@ class BaseSpider {
    */
   async goToEditor() {
     logger.info(`navigating to ${this.urls.editor}`)
-    await this.page.goto(this.urls.editor)
+    await this.page.goto(this.urls.editor, {
+      timeout: 0    //0为不设超时限制
+  })
     await this.page.waitFor(5000)
     await this.afterGoToEditor()
   }
@@ -304,6 +308,7 @@ class BaseSpider {
    * 运行爬虫
    */
   async run() {
+
     // 初始化
     await this.init()
 
@@ -384,7 +389,7 @@ class BaseSpider {
     await this.setCookies()
 
     // 导航至首页
-    await this.page.goto(this.platform.url)
+    await this.page.goto(this.platform.url, { timeout: 0 })
     await this.page.waitFor(5000)
 
     // 检查登陆状态
