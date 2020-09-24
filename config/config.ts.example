@@ -71,7 +71,7 @@ if (isAntDesignProPreview) {
   ]);
 }
 
-export const apiEndpoint = 'http://192.168.50.198:3000';
+export const apiEndpoint = 'http://localhost:3000';
 
 export default {
   plugins,
